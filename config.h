@@ -1,21 +1,21 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const char font[]            = "-*-snap-normal-r-normal-*-10-*-*-*-*-*-*-*";
-
+/*static const char font[]            = "-*-snap-normal-r-normal-*-10-*-*-*-*-*-*-*"; */
+static const char font[]            = "-*-cure-medium-r-normal-*-11-*-*-*-*-*-*-*";
 #define NUMCOLORS 21
 static const char colors[NUMCOLORS][ColLast][21] = {
 	/* border    fg        bg */
-    { "#020202", "#DBD5D5", "#020202" },  // 01 - normal
-    { "#1A1A1A", "#20b2e7", "#020202" },  // 02 - selected
-    { "#B3354C", "#B3354C", "#020202" },  // 03 - urgent
+    { "#020202", "#D7D0C7", "#151515" },  // 01 - normal
+    { "#1A1A1A", "#7DC1CF", "#151515" },  // 02 - selected
+    { "#B3354C", "#B3354C", "#151515" },  // 03 - urgent
 
-    { "#1A1A1A", "#1A1A1A", "#020202" },  // 04 - black
-    { "#FF1239", "#FF1239", "#020202" },  // 05 - red
-    { "#38F716", "#38F716", "#020202" },  // 06 - green
-    { "#FFD900", "#FFD900", "#020202" },  // 07 - yellow
-    { "#0098E3", "#0098E3", "#020202" },  // 08 - blue
-    { "#FF0095", "#FF0095", "#020202" },  // 09 - magenta
+    { "#1A1A1A", "#1A1A1A", "#151515" },  // 04 - black
+    { "#D23D3D", "#D23D3D", "#151515" },  // 05 - red
+    { "#A0CF5D", "#A0CF5D", "#151515" },  // 06 - green
+    { "#F39D21", "#F39D21", "#151515" },  // 07 - yellow
+    { "#4E9FB1", "#4E9FB1", "#151515" },  // 08 - blue
+    { "#8542FF", "#8542FF", "#151515" },  // 09 - magenta
     { "#000000", "#000000", "#000000" },  // unusable
     { "#337373", "#337373", "#020202" },  // 0B - cyan
     { "#808080", "#808080", "#020202" },  // 0C - light gray
