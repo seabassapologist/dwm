@@ -23,7 +23,8 @@ md5sums=('8bb00d4142259beb11e13473b81c0857'
 build() {
   cd $srcdir/$pkgname-$pkgver
   
-  patch -p1 < ~/ABS/dwm/dwm-6.0-statuscolors.diff
+  patch dwm.c $srcdir/dwm-6.0-statuscolors.diff
+  patch dwm.c $srcdir/dwm-6.0-singularborders.diff
   
   cp $srcdir/config.h config.h
   
