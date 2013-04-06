@@ -1,13 +1,12 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-/*static const char font[]            = "-*-snap-normal-r-normal-*-10-*-*-*-*-*-*-*"; */
 static const char font[]            = "-*-cure-medium-r-normal-*-11-*-*-*-*-*-*-*";
 #define NUMCOLORS 21
 static const char colors[NUMCOLORS][ColLast][21] = {
 	/* border    fg        bg */
     { "#020202", "#D7D0C7", "#151515" },  // 01 - normal
-    { "#1A1A1A", "#7DC1CF", "#151515" },  // 02 - selected
+    { "#020202", "#7DC1CF", "#151515" },  // 02 - selected
     { "#B3354C", "#B3354C", "#151515" },  // 03 - urgent
 
     { "#1A1A1A", "#1A1A1A", "#151515" },  // 04 - black
@@ -44,6 +43,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
+	{ "mplayer",  NULL,       NULL,       1 << 8,       False,       -1 },
 };
 
 /* layout(s) */
@@ -53,13 +53,13 @@ static const Bool resizehints = False; /* True means respect size hints in tiled
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "[T]",      tile },    /* first entry is default */
+	{ "[F]",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -70,18 +70,22 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-i", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],
+static const char *dmenucmd[] 		= { "dmenu_run", "-i", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],
                                        "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL  };
-static const char *termcmd[]  = { "urxvt", NULL };
-static const char *webcmd[] = { "chromium", NULL };
-static const char *voldowncmd[]    = { "amixer", "-q", "set", "Master", "2dB-",  NULL };
-static const char *volupcmd[]      = { "amixer", "-q", "set", "Master", "2dB+",  NULL };
+static const char *termcmd[]  		= { "urxvt", NULL };
+static const char *webcmd[] 		= { "chromium", NULL };
+static const char *dwbcmd[]			= { "dwb", NULL};
+static const char *fmcmd[]			= { "pcmanfm", NULL};
+static const char *voldowncmd[]    	= { "amixer", "-q", "set", "Master", "2dB-",  NULL };
+static const char *volupcmd[]      	= { "amixer", "-q", "set", "Master", "2dB+",  NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_w,      spawn,          {.v = webcmd } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = dwbcmd } },
+	{ MODKEY,                       XK_q,      spawn,          {.v = webcmd } },
+	{ MODKEY,						XK_e,      spawn,          {.v = fmcmd } },
 	{ MODKEY,                       XK_Left,   spawn,          {.v = voldowncmd } },
 	{ MODKEY,                       XK_Right,  spawn,          {.v = volupcmd } },	
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
