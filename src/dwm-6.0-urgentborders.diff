@@ -1,0 +1,39 @@
+--- dwm-singularborders.c	2014-02-24 13:51:07.454347479 -0500
++++ dwm-urgentborders.c	2014-02-26 19:10:03.339857280 -0500
+@@ -108,11 +108,13 @@
+ 	int x, y, w, h;
+ 	unsigned long norm[ColLast];
+ 	unsigned long sel[ColLast];
++	unsigned long urg[ColLast];
+ 	Drawable drawable;
+ 	GC gc;
+     struct {
+         XftColor norm[ColLast];
+         XftColor sel[ColLast];
++        XftColor urg[ColLast];
+         XftDraw *drawable;
+     } xft;
+ 	struct {
+@@ -1633,6 +1635,9 @@
+ 	dc.sel[ColBorder] = getcolor(selbordercolor, dc.xft.sel + ColBorder);
+ 	dc.sel[ColBG] = getcolor(selbgcolor, dc.xft.sel + ColBG);
+ 	dc.sel[ColFG] = getcolor(selfgcolor, dc.xft.sel + ColFG);
++	dc.urg[ColBorder] = getcolor(urgbordercolor, dc.xft.urg + ColBorder);
++	dc.urg[ColBG] = getcolor(selbgcolor, dc.xft.urg + ColBG);
++	dc.urg[ColFG] = getcolor(selfgcolor, dc.xft.urg + ColFG);
+ 	dc.drawable = XCreatePixmap(dpy, root, DisplayWidth(dpy, screen), bh, DefaultDepth(dpy, screen));
+ 	dc.xft.drawable = XftDrawCreate(dpy, dc.drawable, DefaultVisual(dpy, screen), DefaultColormap(dpy, screen));
+ 	dc.gc = XCreateGC(dpy, root, 0, NULL);
+@@ -2050,8 +2055,11 @@
+ 			wmh->flags &= ~XUrgencyHint;
+ 			XSetWMHints(dpy, c->win, wmh);
+ 		}
+-		else
++		else {
+ 			c->isurgent = (wmh->flags & XUrgencyHint) ? True : False;
++			if (c->isurgent)
++				XSetWindowBorder(dpy, c->win, dc.urg[ColBorder]);
++		}
+ 		if(wmh->flags & InputHint)
+ 			c->neverfocus = !wmh->input;
+ 		else

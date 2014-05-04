@@ -11,7 +11,7 @@ url="http://dwm.suckless.org"
 arch=('i686' 'x86_64')
 license=('MIT')
 options=(zipman)
-depends=('libx11' 'libxinerama')
+depends=('libx11' 'libxinerama' 'pango')
 install=dwm.install
 source=(http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz
 	config.h
@@ -22,17 +22,16 @@ md5sums=('8bb00d4142259beb11e13473b81c0857'
 
 build() {
   cd $srcdir/$pkgname-$pkgver
-  
-  patch dwm.c $srcdir/dwm-6.0-statuscolors.diff
+
+  patch dwm.c $srcdir/dwm-6.0-pango.diff
   patch dwm.c $srcdir/dwm-6.0-singularborders.diff
-  
+  patch dwm.c $srcdir/dwm-6.0-urgentborders.diff
+  patch dwm.c $srcdir/dwm-6.0-centerclock.diff
+
+
   cp $srcdir/config.h config.h
-  
-  sed -i 's/CPPFLAGS =/CPPFLAGS +=/g' config.mk
-  sed -i 's/^CFLAGS = -g/#CFLAGS += -g/g' config.mk
-  sed -i 's/^#CFLAGS = -std/CFLAGS += -std/g' config.mk
-  sed -i 's/^LDFLAGS = -g/#LDFLAGS += -g/g' config.mk
-  sed -i 's/^#LDFLAGS = -s/LDFLAGS += -s/g' config.mk
+  cp $srcdir/config.mk config.mk
+
   make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
 }
 
